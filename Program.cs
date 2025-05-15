@@ -5,10 +5,11 @@ using ImageClassficationCoin;
 
 namespace TestAIDog
 {
-    public class PredictionResult
+    public class PredictionResponse
     {
-        public string[] PredictedLabel { get; set; }
-        public float[] Score { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public object Data { get; set; }
     }
 
     public class Program
@@ -37,12 +38,17 @@ namespace TestAIDog
             Directory.CreateDirectory(uploadFolder);
 
             app.MapPost("/predict", async (
-     HttpRequest request,
-     PredictionEnginePool<MLModel.ModelInput, MLModel.ModelOutput> predictionEnginePool) =>
+                HttpRequest request,
+                PredictionEnginePool<MLModel.ModelInput, MLModel.ModelOutput> predictionEnginePool) =>
             {
                 if (!request.HasFormContentType || request.Form.Files.Count == 0)
                 {
-                    return Results.BadRequest("Please upload an image file.");
+                    return Results.BadRequest(new PredictionResponse
+                    {
+                        Status = "error",
+                        Message = "Please upload an image file.",
+                        Data = null
+                    });
                 }
 
                 IFormFile file = request.Form.Files[0];
@@ -56,17 +62,32 @@ namespace TestAIDog
                     ImageSource = imageBytes,
                 };
 
-                var prediction = predictionEnginePool.Predict(input);
-
-                var result = new PredictionResult
+                try
                 {
-                    PredictedLabel = new[] { prediction.PredictedLabel },
-                    Score = prediction.Score
-                };
+                    var prediction = predictionEnginePool.Predict(input);
 
-                return Results.Ok(result);
+                    // Check if the predicted label indicates a coin
+                    bool isCoin = prediction.PredictedLabel == "ValidCoin";
+
+                    var result = new PredictionResponse
+                    {
+                        Status = "success",
+                        Message = "Prediction completed",
+                        Data = new { isCoin }
+                    };
+
+                    return Results.Ok(result);
+                }
+                catch (Exception ex)
+                {
+                    return Results.Problem(new PredictionResponse
+                    {
+                        Status = "error",
+                        Message = $"Prediction failed: {ex.Message}",
+                        Data = null
+                    }.ToString());
+                }
             });
-
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
