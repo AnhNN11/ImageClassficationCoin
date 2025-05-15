@@ -1,0 +1,138 @@
+# Binaries
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated/
+ClientApp/dist/
+node_modules/
+
+# Build results
+*.dll
+*.exe
+*.app
+*.ipa
+*.dSYM/
+*.js
+*.jsx
+*.wasm
+*.pdb
+*.mdb
+*.ilk
+*.lib
+*.obj
+*.log
+*.exp
+*.idb
+*.tlog
+*.lastbuildstate
+*.sln.metaproj
+
+# Package files
+*.nupkg
+*.snupkg
+*.symbols.nupkg
+*.package
+*.vsix
+
+# Configuration files
+*.config
+*.json
+appsettings*.json
+
+# Logs
+*.log
+logs/
+
+# Web-specific files
+wwwroot/
+node_modules/
+yarn.lock
+package-lock.json
+
+# Cache
+.vs/
+_ReSharper/
+*.sln.cache
+*.DotSettings.user
+*.cache
+*.ide
+
+# Database
+*.mdf
+*.ldf
+*.db
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.bak
+*.swp
+
+# Publish output
+publish/
+out/
+
+# Debugger files
+.vshost.exe
+.vshost.exe.manifest
+.vshost.exe.config
+
+# Rider
+.idea/
+.idea_modules/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/libraries
+.idea/.idea_modules
+.idea/.idea/
+.idea/.gitignore
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+.nuget/
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+TestResults/
+*.trx
+*.tests.dll
+
+# Docker
+docker-compose.override.yml
+**/Dockerfile
+
+# Temporary files for VS
+*_i.c
+*_p.c
+*.idb
+*.ipdb
+*.pgc
+*.pgd
+*.pgd2
+*.pgc2
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Entity Framework Migrations
+Migrations/
+*.designer.cs
